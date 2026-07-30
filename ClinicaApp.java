@@ -69,6 +69,8 @@ public class ClinicaApp {
         // 2. Validar que el ID no exista ya (usar buscarIndicePorId).
         // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
         // 4. Agregarlo a la lista con turnos.add(turno);
+        Integer id= leerEntero(msg:"Digite su identificador");
+        String patientName= leerTexto(msg:"Escriba el nombre del paciente");
     }
 
     static void mostrarTurnos() {
