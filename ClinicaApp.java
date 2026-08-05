@@ -113,6 +113,22 @@ public class ClinicaApp {
         // Para cada turno: duracionMinutos * valorMinuto.
         // Mostrar el subtotal de cada turno y el gran total al final.
         // Recuerde convertir el texto a número antes de operar.
+        if (turnos.isEmpty){
+            System.out.println("No se encuentran turnos registrados")
+            return
+        }
+        double total=0;
+        for(i=0; i< turnos.size(); i++){
+            double duracion=Integer.parseDouble(turno(i)(3));
+            double valorminuto=Integer.parseDouble(turno(i)(4));
+            double subtotal= duracion*valorminuto;
+            System.out.println("ID: "+turnos(i)(0)+" Nombre:"+turnos(i)(1)+" Subtotal; "+subtotal);
+            total+= subtotal;
+
+        }
+        System.out.println("El total facturado es de: $"+total);
+        
+
     }
 
     static void reportePorEspecialidad() {
@@ -120,7 +136,31 @@ public class ClinicaApp {
         // Pedir una especialidad y mostrar solo los turnos de esa especialidad,
         // junto con la cantidad de turnos y el promedio de duración en minutos.
         // Comparar con equalsIgnoreCase para no depender de mayúsculas.
+        if (turnos.isEmpty){
+            System.out.println("No se encuentran turnos registrados")
+            return
+        }
+        String especialidad= System.out.println ("Ingrese la especialidad de la que desee el reporte: ");
+        int cantidad=0;
+        int sumaDuracion=0;
+        System.out.println("Turnos de "+especialidad+" :")
+        for (int i = 0; i < turnos.size(); i++) {
+        String[] turno = turnos.get(i);
+
+        if (turno(i)(2).equalsIgnoreCase(especialidad)) {
+            System.out.println("ID: "+turnos(i)(0)+" Nombre:"+turnos(i)(1)+" Duración: "+turnos(i)(3)
+            canitdad ++;
+            sumaDuracion+=Integer.parseInt(turno(i)(3));
+        
     }
+        }
+        if (cantidad == 0) {
+        System.out.println("No hay turnos registrados para esa especialidad.");
+        return;
+        }
+        double promedio = (double) sumaDuracion / cantidad;
+    System.out.println("Cantidad de turnos: " + cantidad);
+    System.out.printf("Promedio de duración: "+ promedio);
 
     // ====== Utilidades (ya implementadas, no es necesario modificarlas) ======
 
