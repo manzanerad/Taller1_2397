@@ -119,10 +119,10 @@ public class ClinicaApp {
         }
         double total=0;
         for(i=0; i< turnos.size(); i++){
-            double duracion=Integer.parseDouble(turno(i)(3));
-            double valorminuto=Integer.parseDouble(turno(i)(4));
+            double duracion=Integer.parseDouble(turno(i)[3]);
+            double valorminuto=Integer.parseDouble(turno(i)[4]);
             double subtotal= duracion*valorminuto;
-            System.out.println("ID: "+turnos(i)(0)+" Nombre:"+turnos(i)(1)+" Subtotal; "+subtotal);
+            System.out.println("ID: "+turnos(i)[0]+" Nombre:"+turnos(i)[1]+" Subtotal; "+subtotal);
             total+= subtotal;
 
         }
@@ -147,10 +147,10 @@ public class ClinicaApp {
         for (int i = 0; i < turnos.size(); i++) {
         String[] turno = turnos.get(i);
 
-        if (turno(i)(2).equalsIgnoreCase(especialidad)) {
-            System.out.println("ID: "+turnos(i)(0)+" Nombre:"+turnos(i)(1)+" Duración: "+turnos(i)(3)
+        if (turno(i)[2].equalsIgnoreCase(especialidad)) {
+            System.out.println("ID: "+turnos(i)[0]+" Nombre:"+turnos(i)[1]+" Duración: "+turnos(i)[3]
             canitdad ++;
-            sumaDuracion+=Integer.parseInt(turno(i)(3));
+            sumaDuracion+=Integer.parseInt(turno(i)[3]);
         
     }
         }
