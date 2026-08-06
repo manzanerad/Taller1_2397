@@ -33,15 +33,33 @@ public class ClinicaApp {
             opcion = leerEntero("Seleccione una opción: ");
 
             switch (opcion) {
-                case 1 -> registrarTurno();
-                case 2 -> mostrarTurnos();
-                case 3 -> buscarTurnoPorId();
-                case 4 -> actualizarTurno();
-                case 5 -> cancelarTurno();
-                case 6 -> calcularTotalFacturado();
-                case 7 -> reportePorEspecialidad();
-                case 8 -> System.out.println("Cerrando el sistema. Hasta pronto.");
-                default -> System.out.println("Opción inválida. Intente de nuevo.");
+                case 1:
+        registrarTurno();
+        break;
+    case 2:
+        mostrarTurnos();
+        break;
+    case 3:
+        buscarTurnoPorId();
+        break;
+    case 4:
+        actualizarTurno();
+        break;
+    case 5:
+        cancelarTurno();
+        break;
+    case 6:
+        calcularTotalFacturado();
+        break;
+    case 7:
+        reportePorEspecialidad();
+        break;
+    case 8:
+        System.out.println("Cerrando el sistema. Hasta pronto.");
+        break;
+    default:
+        System.out.println("Opción inválida. Intente de nuevo.");
+        break;
             }
             System.out.println();
         } while (opcion != 8);
@@ -71,7 +89,7 @@ public class ClinicaApp {
         // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
         // 4. Agregarlo a la lista con turnos.add(turno);
         String idTurno= leerTexto("Digite su identificador: ");
-        Integer idExiste= buscarIndicePorId(idTurno);
+        Integer idExiste= buscarIndicePorId();
         if (idExiste != -1){
             System.out.println("El ID ya existe");
             return;
@@ -164,46 +182,41 @@ public class ClinicaApp {
             opcion = leerEntero("Ingrese una opción: ");
 
             switch (opcion) {
-                case 1 -> {
-                    turno[PACIENTE] = leerTexto("Ingrese el nuevo paciente: ");
-                    System.out.println("Paciente actualizado correctamente.");
-                }
-
-                case 2 -> {
-                    turno[ESPECIALIDAD] =
-                        leerTexto("Ingrese la nueva especialidad: ");
-                        System.out.println("Especialidad actualizada correctamente.");
-                    }
-
-                case 3 -> {
-                    int duracion;
-                    do {
-                        duracion = leerEntero("Ingrese la nueva duracion: ");
-
-                        if (duracion <= 0) {
-                            System.out.println("La duracion debe ser mayor que cero");
-                            }
-                    } while (duracion <= 0);
-
-                        turno[DURACION] = String.valueOf(duracion);
-                        System.out.println("Duración actualizada correctamente");
-                    }
-
-                    case 4 -> {
-                        double valorMinuto;
-                        do {
-                            valorMinuto = leerDecimal("Ingrese el nuevo valor por minuto: ");
-
-                            if (valorMinuto <= 0) {
-                                System.out.println("El valor por minuto debe ser mayor que cero");
-                            }
-                        } while (valorMinuto <= 0);
-
-                        turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
-                        System.out.println("Valor por minuto actualizado correctamente.");
-                    }
-
-                    default -> System.out.println("Opcion invalida");
+                case 1:
+        turno[PACIENTE] = leerTexto("Ingrese el nuevo paciente: ");
+        System.out.println("Paciente actualizado correctamente.");
+        break;
+    case 2:
+        turno[ESPECIALIDAD] = leerTexto("Ingrese la nueva especialidad: ");
+        System.out.println("Especialidad actualizada correctamente.");
+        break;
+    case 3: {
+        int duracion;
+        do {
+            duracion = leerEntero("Ingrese la nueva duracion: ");
+            if (duracion <= 0) {
+                System.out.println("La duracion debe ser mayor que cero");
+            }
+        } while (duracion <= 0);
+        turno[DURACION] = String.valueOf(duracion);
+        System.out.println("Duración actualizada correctamente");
+        break;
+    }
+    case 4: {
+        double valorMinuto;
+        do {
+            valorMinuto = leerDecimal("Ingrese el nuevo valor por minuto: ");
+            if (valorMinuto <= 0) {
+                System.out.println("El valor por minuto debe ser mayor que cero");
+            }
+        } while (valorMinuto <= 0);
+        turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
+        System.out.println("Valor por minuto actualizado correctamente.");
+        break;
+    }
+    default:
+        System.out.println("Opcion invalida");
+        break;
                 }
             } while (opcion < 1 || opcion > 4);
     }
@@ -296,7 +309,7 @@ public class ClinicaApp {
     }
     double promedio = (double) sumaDuracion / cantidad;
     System.out.println("Cantidad de turnos: " + cantidad);
-    System.out.printf("Promedio de duración:", promedio);
+    System.out.println("Promedio de duración:"+ promedio);
     }
 
     // ====== Utilidades (ya implementadas, no es necesario modificarlas) ======
