@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  * Sistema de Gestión de Turnos - Clínica San Rafael
@@ -145,7 +146,7 @@ static void buscarTurnoPorId() {
         System.out.println("el turno con ese ID no existe");
     }
     else {
-        System.out.println(turnos.get(indiceID));
+        System.out.println( Arrays.toString(turnos.get(indiceID)));
     }
 }
 
@@ -274,7 +275,7 @@ static void cancelarTurno() {
         total += subtotal;
     }
     System.out.printf("El total facturado es de: $%.2f%n", total);
-        
+
 
     }
 
