@@ -70,8 +70,24 @@ public class ClinicaApp {
         // 2. Validar que el ID no exista ya (usar buscarIndicePorId).
         // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
         // 4. Agregarlo a la lista con turnos.add(turno);
-        Integer id= leerEntero(msg:"Digite su identificador");
-        String patientName= leerTexto(msg:"Escriba el nombre del paciente");
+        String idTurno= leerTexto("Digite su identificador: ");
+        Integer idExiste= buscarIndicePorId(idTurno);
+        if (idExiste != -1){
+            System.out.println("El ID ya existe");
+            return;
+        }
+        String nombrePaciente= leerTexto("Escriba el nombre del paciente: ");
+        String especialidad= leerTexto("Escriba la especialidad: ");
+        String duracionMinutos= leerTexto("Digite la duración: ");
+        String valorMinuto= leerTexto("Digite el valor por minuto: ");
+        String [] turno = new String[CAMPOS];
+        turno[ID] = (idTurno);
+        turno[PACIENTE] = (nombrePaciente);
+        turno[ESPECIALIDAD] = (especialidad);
+        turno[DURACION] = (duracionMinutos);
+        turno[VALOR_MINUTO] = (valorMinuto);
+        turnos.add(turno);
+        System.out.println("Turno registrado correctamente.");
     }
 
     static void mostrarTurnos() {
@@ -79,6 +95,14 @@ public class ClinicaApp {
         // Si la lista está vacía, avisar al usuario.
         // Recorrer la lista e imprimir cada turno en formato tabular y legible.
         // Sugerencia: System.out.printf("%-6s %-20s %-15s %8s %12s%n", ...);
+        if (turnos.isEmpty()){
+            System.out.println("La lista está vacía.");
+        } else {
+            System.out.printf("%-6s %-20s %-15s %-10s %-12s%n","ID", "Paciente", "Especialidad", "Duración", "Valor");
+            for (String [] turno: turnos){
+                System.out.printf("%-6s %-20s %-15s %-10s %-12s%n", turno[ID],turno[PACIENTE],turno[ESPECIALIDAD],turno[DURACION],turno[VALOR_MINUTO]);
+            }
+        }
     }
 
     // ================= ROL B: feature/crud-turnos =================
