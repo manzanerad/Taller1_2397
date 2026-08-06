@@ -89,7 +89,7 @@ public class ClinicaApp {
         // 3. Crear el arreglo: String[] turno = new String[CAMPOS];
         // 4. Agregarlo a la lista con turnos.add(turno);
         String idTurno= leerTexto("Digite su identificador: ");
-        Integer idExiste= buscarIndicePorId();
+        Integer idExiste= buscarIndicePorId(idTurno);
         if (idExiste != -1){
             System.out.println("El ID ya existe");
             return;
@@ -126,134 +126,132 @@ public class ClinicaApp {
     // ================= ROL B: feature/crud-turnos =================
     // Responsable de: buscarTurnoPorId, actualizarTurno, cancelarTurno, buscarIndicePorId
 
-    static int buscarIndicePorId() {
-        // Recorrer la lista y devolver la POSICIÓN del turno cuyo ID coincida.
-        // Si no existe, devolver -1. Este método lo reutilizan los demás roles.
-        String id = leerTexto("Ingresa un ID: ");
-
-        for (int i = 0; i < turnos.size(); i++){
-            if (Objects.equals(id, turnos.get(i)[0])){
-                return i;
-            }
+    static int buscarIndicePorId(String id) {
+    // Recorrer la lista y devolver la POSICIÓN del turno cuyo ID coincida.
+    // Si no existe, devolver -1. Este método lo reutilizan los demás roles.
+    for (int i = 0; i < turnos.size(); i++){
+        if (Objects.equals(id, turnos.get(i)[0])){
+            return i;
         }
-        return -1;
+    }
+    return -1;
+}
+
+static void buscarTurnoPorId() {
+    // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
+    String id = leerTexto("Ingresa un ID: ");
+    int indiceID = buscarIndicePorId(id);
+    if (indiceID == -1){
+        System.out.println("el turno con ese ID no existe");
+    }
+    else {
+        System.out.println(turnos.get(indiceID));
+    }
+}
+
+static void actualizarTurno() {
+    // Pedir el ID, verificar que exista y mostrar un submenú para elegir
+    // qué campo modificar: paciente, especialidad, duración o valor por minuto.
+    String id = leerTexto("Ingresa un ID: ");
+    int indice = buscarIndicePorId(id);
+
+    if (indice == -1) {
+        System.out.println("El turno con ese ID no existe");
+        return;
     }
 
-    static void buscarTurnoPorId() {
-        // Pedir el ID, usar buscarIndicePorId y mostrar los datos o un mensaje de "no existe".
-        int indiceID = buscarIndicePorId();
-        if (indiceID == -1){
-            System.out.println("el turno con ese ID no existe");
-        }
-        else {
-            System.out.println(turnos.get(indiceID));
-        }
+    String[] turno = turnos.get(indice);
 
-    }
+    System.out.println("\nDatos actuales del turno");
+    System.out.println("ID: " + turno[ID]);
+    System.out.println("Paciente: " + turno[PACIENTE]);
+    System.out.println("Especialidad: " + turno[ESPECIALIDAD]);
+    System.out.println("Duracion: " + turno[DURACION] + " minutos");
+    System.out.println("Valor por minuto: $" + turno[VALOR_MINUTO]);
 
-    static void actualizarTurno() {
-        // Pedir el ID, verificar que exista y mostrar un submenú para elegir
-        // qué campo modificar: paciente, especialidad, duración o valor por minuto.
-        int indice = buscarIndicePorId();
+    int opcion;
 
-        if (indice == -1) {
-            System.out.println("El turno con ese ID no existe");
-            return;
-        }
+    do {
+        System.out.println("\nQue campo desea modificar?");
+        System.out.println("1. Paciente");
+        System.out.println("2. Especialidad");
+        System.out.println("3. Duración");
+        System.out.println("4. Valor por minuto");
 
-        String[] turno = turnos.get(indice);
+        opcion = leerEntero("Ingrese una opción: ");
 
-        System.out.println("\nDatos actuales del turno");
-        System.out.println("ID: " + turno[ID]);
-        System.out.println("Paciente: " + turno[PACIENTE]);
-        System.out.println("Especialidad: " + turno[ESPECIALIDAD]);
-        System.out.println("Duracion: " + turno[DURACION] + " minutos");
-        System.out.println("Valor por minuto: $" + turno[VALOR_MINUTO]);
-
-        int opcion;
-
-        do {
-            System.out.println("\nQue campo desea modificar?");
-            System.out.println("1. Paciente");
-            System.out.println("2. Especialidad");
-            System.out.println("3. Duración");
-            System.out.println("4. Valor por minuto");
-
-            opcion = leerEntero("Ingrese una opción: ");
-
-            switch (opcion) {
-                case 1:
-        turno[PACIENTE] = leerTexto("Ingrese el nuevo paciente: ");
-        System.out.println("Paciente actualizado correctamente.");
-        break;
-    case 2:
-        turno[ESPECIALIDAD] = leerTexto("Ingrese la nueva especialidad: ");
-        System.out.println("Especialidad actualizada correctamente.");
-        break;
-    case 3: {
-        int duracion;
-        do {
-            duracion = leerEntero("Ingrese la nueva duracion: ");
-            if (duracion <= 0) {
-                System.out.println("La duracion debe ser mayor que cero");
+        switch (opcion) {
+            case 1:
+                turno[PACIENTE] = leerTexto("Ingrese el nuevo paciente: ");
+                System.out.println("Paciente actualizado correctamente.");
+                break;
+            case 2:
+                turno[ESPECIALIDAD] = leerTexto("Ingrese la nueva especialidad: ");
+                System.out.println("Especialidad actualizada correctamente.");
+                break;
+            case 3: {
+                int duracion;
+                do {
+                    duracion = leerEntero("Ingrese la nueva duracion: ");
+                    if (duracion <= 0) {
+                        System.out.println("La duracion debe ser mayor que cero");
+                    }
+                } while (duracion <= 0);
+                turno[DURACION] = String.valueOf(duracion);
+                System.out.println("Duración actualizada correctamente");
+                break;
             }
-        } while (duracion <= 0);
-        turno[DURACION] = String.valueOf(duracion);
-        System.out.println("Duración actualizada correctamente");
-        break;
-    }
-    case 4: {
-        double valorMinuto;
-        do {
-            valorMinuto = leerDecimal("Ingrese el nuevo valor por minuto: ");
-            if (valorMinuto <= 0) {
-                System.out.println("El valor por minuto debe ser mayor que cero");
+            case 4: {
+                double valorMinuto;
+                do {
+                    valorMinuto = leerDecimal("Ingrese el nuevo valor por minuto: ");
+                    if (valorMinuto <= 0) {
+                        System.out.println("El valor por minuto debe ser mayor que cero");
+                    }
+                } while (valorMinuto <= 0);
+                turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
+                System.out.println("Valor por minuto actualizado correctamente.");
+                break;
             }
-        } while (valorMinuto <= 0);
-        turno[VALOR_MINUTO] = String.valueOf(valorMinuto);
-        System.out.println("Valor por minuto actualizado correctamente.");
-        break;
-    }
-    default:
-        System.out.println("Opcion invalida");
-        break;
-                }
-            } while (opcion < 1 || opcion > 4);
-    }
-
-
-    static void cancelarTurno() {
-        // Pedir el ID, verificar que exista, pedir confirmación (S/N) y eliminar
-        // con turnos.remove(indice);
-
-        int indice = buscarIndicePorId();
-        if (indice == -1) {
-            System.out.println("El turno con ese ID no existe.");
-            return;
+            default:
+                System.out.println("Opcion invalida");
+                break;
         }
+    } while (opcion < 1 || opcion > 4);
+}
 
-        String[] turno = turnos.get(indice);
-
-        System.out.println("\n=== Turno encontrado ===");
-        System.out.println("ID: " + turno[ID]);
-        System.out.println("Paciente: " + turno[PACIENTE]);
-        System.out.println("Especialidad: " + turno[ESPECIALIDAD]);
-
-        String confirmacion;
-
-        do{
-            confirmacion = leerTexto("¿Está seguro de cancelar el turno? (S/N): ");
-            if (confirmacion.equalsIgnoreCase("S")){
-                turnos.remove(indice);
-                System.out.println("Turno cancelado");
-            } else if (confirmacion.equalsIgnoreCase("N")){
-                System.out.println("Cancelacion anulada.");
-            }
-            else{
-                System.out.println("Ingresa una opcion valida");
-            }
-        } while (!confirmacion.equalsIgnoreCase("S") && !confirmacion.equalsIgnoreCase("N"));
+static void cancelarTurno() {
+    // Pedir el ID, verificar que exista, pedir confirmación (S/N) y eliminar
+    // con turnos.remove(indice);
+    String id = leerTexto("Ingresa un ID: ");
+    int indice = buscarIndicePorId(id);
+    if (indice == -1) {
+        System.out.println("El turno con ese ID no existe.");
+        return;
     }
+
+    String[] turno = turnos.get(indice);
+
+    System.out.println("\n=== Turno encontrado ===");
+    System.out.println("ID: " + turno[ID]);
+    System.out.println("Paciente: " + turno[PACIENTE]);
+    System.out.println("Especialidad: " + turno[ESPECIALIDAD]);
+
+    String confirmacion;
+
+    do{
+        confirmacion = leerTexto("¿Está seguro de cancelar el turno? (S/N): ");
+        if (confirmacion.equalsIgnoreCase("S")){
+            turnos.remove(indice);
+            System.out.println("Turno cancelado");
+        } else if (confirmacion.equalsIgnoreCase("N")){
+            System.out.println("Cancelacion anulada.");
+        }
+        else{
+            System.out.println("Ingresa una opcion valida");
+        }
+    } while (!confirmacion.equalsIgnoreCase("S") && !confirmacion.equalsIgnoreCase("N"));
+}
 
     // ============ ROL C: feature/calculos-validaciones ============
     // Responsable de: calcularTotalFacturado, reportePorEspecialidad, validaciones
@@ -275,7 +273,7 @@ public class ClinicaApp {
         System.out.println("ID: " + turnos.get(i)[0] + " Nombre:" + turnos.get(i)[1] + " Subtotal: " + subtotal);
         total += subtotal;
     }
-    System.out.println("El total facturado es de: $" + total);
+    System.out.printf("El total facturado es de: $%.2f%n", total);
         
 
     }
