@@ -297,6 +297,7 @@ public class ClinicaApp {
     double promedio = (double) sumaDuracion / cantidad;
     System.out.println("Cantidad de turnos: " + cantidad);
     System.out.printf("Promedio de duración:", promedio);
+    }
 
     // ====== Utilidades (ya implementadas, no es necesario modificarlas) ======
 
